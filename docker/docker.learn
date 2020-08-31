@@ -1,0 +1,41 @@
+General commands:
+
+    docker pull \<images-name>:\<version> : pulls image from Docker registry
+    docker run \<images-name>:\<version> : runs container from mentioned image
+    docker ps : shows all running containers
+    docker ps -a: shows all available containers
+    docker exec: executes a command in a running container
+
+    # Run bash in python container
+    docker run -it python:3.5 bash
+    docker exec -it <container name/id> bash
+
+    # Create new image from running container after changes
+    docker commit -m "message" <container name/id> <new name>:<version>
+    docker commit -m "added date script" keen_aryabhata date_script:1.0
+
+    # Push image to dockerhub
+    docker login
+    docker tag <image_name> <your_docker_hub_username>/<image>:<version>
+    docker push <your_docker_hub_username>/<image>:<version>
+
+Managing Data (Volumes/mounts):
+
+    docker volume --help: to get the volume help
+    docker volume create: to create a new volume
+    docker inspect volume: to inspect the created volume
+    docker run -v: to mount a volume
+
+    # Bind mount -> Run an image with a bound volume at /host in the container
+    docker run -it -v <absolute_path>:<folder path or new folder name> date_project:1.0
+    # Read only version uses ro flag <folder path or new folder name>:ro
+
+    # Volumes
+    docker volume create <volume name>
+    docker volume ls
+
+    # Mount volume and run container
+    docker run -it -v <volume name>:<folder path or new folder name> date_project:1.0
+    modify something in volume (eg. mkdir app)
+    # Run new container from same image with volume mounted
+    docker run -it -v <volume name>:<folder path or new folder name> --name second_container date_project:1.0
