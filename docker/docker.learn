@@ -39,3 +39,7 @@ Managing Data (Volumes/mounts):
     modify something in volume (eg. mkdir app)
     # Run new container from same image with volume mounted
     docker run -it -v <volume name>:<folder path or new folder name> --name second_container date_project:1.0
+
+Commands:
+
+    COPY, RUN and ADD create layers when building an image
