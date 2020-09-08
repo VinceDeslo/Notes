@@ -1,3 +1,8 @@
+Adding user to docker group:
+
+    sudo groupadd docker
+    sudo usermod -aG docker $USER
+
 ................................................................................
 Running and changing containers:
 
@@ -76,3 +81,5 @@ Container logs:
 Real-Time logs:
     docker attach <container> : Gets realtime but exit will close container.
     docker logs -f <conatiner> : Gets old logs and listens for new changes.
+
+................................................................................
