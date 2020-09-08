@@ -80,6 +80,11 @@ Container logs:
 
 Real-Time logs:
     docker attach <container> : Gets realtime but exit will close container.
-    docker logs -f <conatiner> : Gets old logs and listens for new changes.
+    docker logs -f <container> : Gets old logs and listens for new changes.
 
 ................................................................................
+
+Troubleshooting:
+
+    Space occupied by docker: docker system df
+    View specifics of docker: docker inspect <container/image/network>
