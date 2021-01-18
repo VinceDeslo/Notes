@@ -75,7 +75,7 @@ function error(message: string): never {
 let o: object = {}
 ```
 
-## Type Assertion:
+## Type Assertion (casting):
 
 ```typescript
 let someValue: unknown = "this is a string";
@@ -100,6 +100,7 @@ function padLeft(value: string, padding: string | number) {
 ## Common Union Fields:
 
 ```typescript
+// Types are fixed
 type NetworkLoadingState = {
   state: "loading";
 };
@@ -127,6 +128,7 @@ let state: NetworkState = new NetworkState()
 ## Intersection Types:
 
 ```typescript
+// Interfaces are extendable
 interface ErrorHandling {
   success: boolean;
   error?: { message: string };
@@ -142,9 +144,36 @@ interface ArtistsData {
 
 // This type contains all members of previous interfaces
 type ArtworksResponse = ArtworksData & ErrorHandling & ArtistsData;
+
+// Type extension with intersections
+type ArtistsInfo = ArtistsData & { 
+  education: string 
+}
 ```
 
+## Utility types:
 
+```typescript
+List of utility types:
+ttps://www.typescriptlang.org/docs/handbook/utility-types.html
+
+Partial<Type> // Constructs a type with all properties of Type set to optional.
+Readonly<Type> // Constructs a type with all properties of Type set to readonly.
+Record<Keys,Type> // Constructs a type whose prop keys are Keys and whose prop values are Type.
+Pick<Type, Keys> // Constructs a type by picking the set of properties Keys from Type.
+Omit<Type, Keys> // Constructs a type by picking all properties from Type and then removing Keys.
+Exclude<Type, ExcludedUnion> // Constructs a type by excluding from Type all union members that are assignable to ExcludedUnion.
+Extract<Type, Union> // Constructs a type by extracting from Type all union members that are assignable to Union.
+NonNullable<Type>  // Constructs a type by excluding null and undefined from Type.
+Parameters<Type> // Constructs a tuple type from the types used in the parameters of a function type Type.
+ConstructorParameters<Type> // Constructs a tuple or array type from the types of a constructor function type. 
+ReturnType<Type> // Constructs a type consisting of the return type of function Type.
+InstanceType<Type> // Constructs a type consisting of the instance type of a constructor function in Type.
+Required<Type> // Constructs a type consisting of all properties of Type set to required.
+ThisParameterType<Type> // Extracts the type of the this parameter for a function type
+OmitThisParameter<Type> // Removes the this parameter from Type.
+ThisType<Type> // This utility does not return a transformed type. Instead, it serves as a marker for a contextual this type.
+```
 
 
 
