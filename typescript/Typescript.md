@@ -247,7 +247,6 @@ class Dog extends Animal {
 }
 
 const dog = new Dog(); // has .bark() and .move()
-
 ```
 
 ## Acces modifiers:
@@ -369,18 +368,109 @@ function loggingIdentity<T>(arg: Array<T>): Array<T> {
   console.log(arg.length); // Array has a .length, so no more error
   return arg;
 }
-
 ```
 
-## Classes:
+## Generic types:
 
 ```typescript
+// Generic function used
+function identity<T>(arg: T): T {
+  return arg;
+}
 
+// Type of generic function is <T>(arg: T) value of T is a handle
+let myIdentity: <T>(arg: T) => T = identity;
+let myIdentity: <U>(arg: U) => U = identity; // Possible to change generic type parameter
+let myIdentity: { <T>(arg: T): T } = identity; // Same thing but as a call signature literal
+
+// moving the call literal to an interface
+interface GenericIdentityFn {
+  <T>(arg: T): T;
+}
+// We can assign its type like this
+let myIdentity: GenericIdentityFn = identity;
+
+// Make the type parameter visible
+interface GenericIdentityFn<T> {
+  (arg: T): T;
+}
+// It can now be used like this accepting all types
+let myIdentity: GenericIdentityFn<number> = identity;
 ```
 
+## Generic Classes:
 
+```typescript
+class GenericNumber<T> {
+  zeroValue: T;
+  add: (x: T, y: T) => T;	// method signature (like a macro in C)
+}
 
+// Instanciation
+let stringNumeric = new GenericNumber<string>();
+// Initializations
+stringNumeric.zeroValue = "";	
+stringNumeric.add = function (x, y) {
+  return x + y;
+};
+```
 
+## Generic constraints:
+
+```typescript
+// Used for limiting the parameters accepted 
+interface Lengthwise {
+  length: number;	// demands the implementation of .length
+}
+
+// Deriving a new generic from Lengthwise
+function loggingIdentity<T extends Lengthwise>(arg: T): T {
+  console.log(arg.length); // Now we know it has a .length property 
+  return arg;
+}
+
+loggingIdentity(3); // causes error cause no .length property
+loggingIdentity([1,2,3]); // compiles
+
+// This case extends with a generic parameter T
+function getProperty<T, K extends keyof T>(obj: T, key: K) {
+  return obj[key];
+}
+
+let x = { a: 1, b: 2, c: 3, d: 4 }; // this is the signature
+getProperty(x, "a");	// a is present due to K extension
+getProperty(x, "m");	// m is not and causes an error
+
+console.log("Hello world")
+
+function create<T>(c: { new (): T }(╯°o°）╯︵ ┻━┻: T {
+  return new c();
+}
+```
+
+## Factories with generics:
+
+```typescript
+// The type of C is a constructor of generic type
+function create<T>(c: { new (): T }): T {
+  return new c();
+}
+
+// Base class
+class Animal {
+  numLegs: number;
+}
+// Derived class
+class Lion extends Animal {
+  keeper: ZooKeeper;
+}
+// Factory using based class
+function createInstance<A extends Animal>(c: new () => A): A {
+  return new c();
+}
+// We can use a generic factory for all extensions of Animal
+createInstance(Lion).keeper
+```
 
 
 
@@ -388,7 +478,17 @@ function loggingIdentity<T>(arg: Array<T>): Array<T> {
 
 _____
 
-# DATA STRUCTURES:
+# DOM manipulation:
+
+
+
+## List:
+
+```typescript
+
+```
+
+
 
 ## Stack:
 
@@ -398,18 +498,73 @@ _____
 
 
 
-Queue:
+## Queue:
 
-```python
+```typescript
 
 ```
 
 
 
-Binary Tree:
+## Tree:
 
-```Python
+```typescript
 
+```
+
+
+
+
+
+_____
+
+# DATA STRUCTURES:
+
+
+
+## List:
+
+```typescript
+
+```
+
+
+
+## Stack:
+
+```typescript
+// Stack generic class to implement LIFO
+class Stack<T> {
+  _store: T[] = [];			// set local stack 
+  push(val: T) {			// Encapsulate JS .push method
+    this._store.push(val);
+  }
+  pop(): T | undefined {	// Encapsulate JS .pop method (pops last)
+    return this._store.pop();	
+  }
+}
+```
+
+## Queue:
+
+```typescript
+// Queue generic class to implement FIFO
+class Queue<T> {
+  _store: T[] = [];			// set local stack 
+  push(val: T) {			// Encapsulate JS .push method
+    this._store.push(val);
+  }
+  pop(): T | undefined {	// Encapsulate JS .shift method (pops first)
+    return this._store.shift();
+  }
+}
+```
+
+
+
+## Tree:
+
+```typescript
 
 ```
 
