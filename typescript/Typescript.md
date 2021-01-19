@@ -522,14 +522,6 @@ _____
 
 
 
-## List:
-
-```typescript
-
-```
-
-
-
 ## Stack:
 
 ```typescript
@@ -560,9 +552,7 @@ class Queue<T> {
 }
 ```
 
-
-
-## Tree:
+## Binary Tree:
 
 ```typescript
 
@@ -571,6 +561,119 @@ class Queue<T> {
 
 
 _____
+
+
+
+# Patterns:
+
+
+
+## Singleton:
+
+```typescript
+class Singleton {
+    static instance: Singleton = undefined;
+    instanceID: number;
+    
+    // Initialization method of an instance
+    init(id: number){
+    	this.instanceID = value;
+        this.getInstance = () => Singleton.instance
+    }
+    
+    // Determines if an instance exists 
+    constructor(id: number) {
+        if(Singleton.instance === undefined){
+            Singleton.instance = this.init(id); // Construction only if instance is not present
+        }
+        return Singleton.instance; // provide the instance
+    }
+}
+// Assignment of the singleton
+const inst1 = new Singleton(10);
+
+```
+
+## Factory:
+
+```typescript
+// Base class
+class Product {
+    name: string;
+    price: number;
+    
+    constructor (...p: Array<any>){
+        this.name = p[0];
+        this.name = p[1];
+    }
+}
+// Derived class
+class Drink {
+    ml: number;
+   
+    constructor (...p: Array<any>){
+        super(p[0], p[1])
+        this.ml = p[2];
+    }
+}
+
+// Factory class
+class ProductFactory {
+    static create(type: string, ...rest) : Product {
+        switch(type){
+            case 'drink':	
+                return new Drink(...rest);
+        }
+    }
+}
+
+// Usage
+const item = ProductFactory.create('drink', 'Nestea', 2.75, 700); 
+
+```
+
+## Builder:
+
+```typescript
+// Base class
+class Product {
+    name: string;
+    price: number;
+    // Setter methods
+    setName(name: string) {this.name = name;}
+    setPrice(price: number) {this.price = price;}
+}
+
+// Builder class
+class ProductBuilder {
+    product: Product;
+    constructor() {this.product = new Product();}
+    
+    // Setter wrappers 
+    setName(name: string) : ProductBuilder {
+        this.product.setName(name);
+        return this;
+    }
+    setPrice(price: number) : ProductBuilder {
+        this.product.setPrice(price);
+        return this;
+    }
+    // Instance Return function
+   	getProduct() : Product {return this.product} 
+}
+
+// Construction and instanciation
+const builder = new ProductBuilder();
+builder.setName('Nestea').setPrice(2.75);
+const drink = builder.getProduct();
+
+```
+
+
+
+_____
+
+
 
 # MATH STUFF
 
