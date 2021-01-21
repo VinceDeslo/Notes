@@ -175,6 +175,29 @@ OmitThisParameter<Type> // Removes the this parameter from Type.
 ThisType<Type> // This utility does not return a transformed type. Instead, it serves as a marker for a contextual this type.
 ```
 
+## String methods:
+
+```typescript
+
+```
+
+## Array methods:
+
+```typescript
+
+```
+
+## Iterators:
+
+```typescript
+let list = [4, 5, 6];
+// Only objects with the Symbol.iterator prop (for-of)
+for (let i of list) console.log(i); // 4, 5, 6 
+// for-in returns keys and works on any object
+for (let i in list) console.log(i); // "0", "1", "2"
+
+```
+
 ## Decorators:
 
 ```typescript
@@ -291,8 +314,6 @@ class Employee {
 }
 // Classes with a get and no set are infered as readonly
 ```
-
-
 
 ## Static props:
 
@@ -474,51 +495,41 @@ createInstance(Lion).keeper
 
 
 
-
-
 _____
 
 # DOM manipulation:
 
-
-
-## List:
-
 ```typescript
+//HTMLElement
+const app = document.getElementById("app");			// Fetch the main app div (can return null)
+const p = document.createElement("p");		    	// Create a paragraph element (can create custom tags)
+const div = document.getElementByTagName("div")[0]	 // Fetches all matching tags and returns an array of them
+p.textContent="Hello paragraph";			   		// Initialize the text in the paragraph
+app?.appendChild(p);						  	   // Make p a child of app (node extension)
+
+app.children;	// HTMLCollection(2) [p, p]		// Contains only HTMLElement objects
+app.childNodes;	// NodeList(2) [p, p]			// Contains text also
+
+querySelector();		// Returns first descendant of matching node 
+querySelectorAll();		// Returns all 
+
+<ul>
+  <li>First :)</li>
+  <li>Second!</li>
+  <li>Third times a charm.</li>
+</ul>;
+
+const first = document.querySelector('li'); 	// Returns first list element
+const all = document.querySelectorAll("li"); 	// Returns all list elements
+
 
 ```
-
-
-
-## Stack:
-
-```typescript
-
-```
-
-
-
-## Queue:
-
-```typescript
-
-```
-
-
-
-## Tree:
-
-```typescript
-
-```
-
-
 
 
 
 _____
 
-# DATA STRUCTURES:
+# Data Structures:
 
 
 
@@ -555,14 +566,37 @@ class Queue<T> {
 ## Binary Tree:
 
 ```typescript
+// create node
+interface TreeNode<T> {
+    data: T,
+    left?: TreeNode<T>,
+    right?: TreeNode<T>,
+    level?: number
+    
+    constructor(data: any[]) {
+        this.data = data;
+        this.left = undefined;
+        this.right = undefined;
+        this.level = undefined;
+    }
+}
+
+// Items necessary
+root: treeNode<T>
+constructor() // Calls the initialization
+init()  // runs create in a loop
+create()  // Generates the nodes
+
+// Traversals
+- Pre order recursive (root - left - right)
+- In order recursive traversal (left - root - right)
+- Post order recursive traversal (left - right - root)
 
 ```
 
 
 
 _____
-
-
 
 # Patterns:
 
@@ -673,33 +707,78 @@ const drink = builder.getProduct();
 
 _____
 
-
-
 # MATH STUFF
 
 
 
-factorial:
+## factorial:
 
-```python
+```typescript
+// Recursive approach
+var f = [];
+function factorial (n) {
+  if (n == 0 || n == 1) return 1;
+  if (f[n] > 0) return f[n];
+  return f[n] = factorial(n-1) * n;
+}
 
+// Iterative approach
+var f = [];
+function factorial(n) {
+	while (n > 0) {
+		f = f * n;
+		n = n - 1;
+	}
+	return f;
+}
 ```
 
-fibonacci:
+## fibonacci:
 
-```python
+```typescript
+// Recursive approach
+function fibonacci(num) {
+  if (num <= 1) return 1;
+  return fibonacci(num - 1) + fibonacci(num - 2);
+}
 
+// Iterative approach
+function fibonacci(num){
+  let a = 1, b = 0, temp;
+  while (num >= 0){
+    temp = a;
+    a = a + b;
+    b = temp;
+    num--;
+  }
+  return b;
+}
 ```
 
-Prime numbers:
+## Prime numbers:
 
-```python
+```typescript
+// Standard complexity O(n)
+function isPrime(num) {
+  for(var i = 2; i < num; i++)
+    if(num % i === 0) return false;
+  return num > 1;
+}
 
+// Lower time complexity O(sqrt(n))
+const isPrime = num => {
+    for(let i = 2, s = Math.sqrt(num); i <= s; i++)
+        if(num % i === 0) return false; 
+    return num > 1;
+}
 ```
 
-Splitting numbers into digits:
+## Splitting numbers into digits:
 
-```python
-
+```typescript
+// Convert to string and handle chars
+let num = 12345;
+let digitStrings = num.toString().split('')
+let digits = digitStrings.map(n => +n)
 ```
 
