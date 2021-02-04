@@ -73,6 +73,10 @@ function error(message: string): never {
 ```typescript
 // non primitive types 
 let o: object = {}
+
+Object.keys(o) // Get keys
+Object.values(o) // Get values
+
 ```
 
 ## Type Assertion (casting):
@@ -178,13 +182,50 @@ ThisType<Type> // This utility does not return a transformed type. Instead, it s
 ## String methods:
 
 ```typescript
-
+charAt()		// Returns the character at the specified index.
+charcodeAt()	// Returns a number indicating the Unicode value of the character at the given index. (use with String.charCodeAt())
+concat()		// Combines the text of two strings and returns a new string.
+indexOf()		// Returns the index within the calling String object of the first occurrence of the specified value, or -1 if not found.
+lastIndexOf()	// Returns the index within the calling String object of the last occurrence of the specified value, or -1 if not found.
+localCompare() 	// Returns a number indicating whether a reference string comes before or after or is the same as the given string.
+match()			// Used to match a regular expression against a string.
+replace()		// Used to find a match between a regular expression and a string, and to replace the match with a new substring.
+search()		// Executes the search for a match between a regular expression and a specified string.
+slice()			// Extracts a section of a string and returns a new string.
+split()			// Splits a String object into an array of strings by separating the string into substrings.
+substr()		// Returns the characters in a string beginning at the specified location through the specified number of characters.
+substring()		// Returns the characters in a string between two indexes into the string.
+toLocaleLowerCase()	// The characters within a string are converted to lower case while respecting the current locale.
+toLocaleUpperCase()	// The characters within a string are converted to upper case while respecting the current locale.
+toLowerCase()	// Returns the calling string value converted to lower case.
+toUpperCase()	// Returns the calling string value converted to uppercase.
+toString()		// Returns a string representing the specified object.
+valueOf()		// Returns the primitive value of the specified object.
 ```
 
 ## Array methods:
 
 ```typescript
-
+concat() 		// Returns a new array comprised of this array joined with other array(s) and/or value(s).
+every()  		// Returns true if every element in this array satisfies the provided testing function.
+filter()		// Creates a new array with all of the elements of this array for which the provided filtering function returns true.
+forEach()		// Calls a function for each element in the array.
+indexOf()		// Returns the first (least) index of an element within the array equal to the specified value, or -1 if none is found.
+join()			// Joins all elements of an array into a string.
+lastIndexOf()	// Returns the last (greatest) index of an element within the array equal to the specified value, or -1 if none is found.
+map()			// Creates a new array with the results of calling a provided function on every element in this array.
+pop()			// Removes the last element from an array and returns that element.
+push()			// Adds one or more elements to the end of an array and returns the new length of the array.
+reduce()		// Apply a function simultaneously against two values (from left-to-right) as to reduce it to a single value.
+reduceRight()	// Apply a function simultaneously against two values (from right-to-left) as to reduce it to a single value.
+reverse() 		// Reverses the order of the elements of an array -- the first becomes the last, and the last becomes the first.
+shift() 		// Removes the first element from an array and returns that element.
+slice()			// Extracts a section of an array and returns a new array.
+some() 			// Returns true if at least one element in this array satisfies the provided testing function
+sort()			// Sorts the elements of an array.
+splice()		// Adds and/or removes elements from an array.
+toString()		// Returns a string representing the array and its elements.
+unshift()		// Adds one or more elements to the front of an array and returns the new length of the array.
 ```
 
 ## Iterators:
@@ -738,8 +779,9 @@ function factorial(n) {
 ```typescript
 // Recursive approach
 function fibonacci(num) {
-  if (num <= 1) return 1;
-  return fibonacci(num - 1) + fibonacci(num - 2);
+    if (num < 1) return 0;
+    if (num < 2) return 1;
+    return fibonacci(num - 1) + fibonacci(num - 2);
 }
 
 // Iterative approach
